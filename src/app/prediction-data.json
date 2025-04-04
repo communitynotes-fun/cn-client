@@ -1,0 +1,65 @@
+[
+	{
+		"id": 1,
+		"predictedNote": "While AI progress has been rapid in some areas like language models, many experts caution that advancements are slower in areas like reasoning and general intelligence.",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": 50,
+		"myBet": 50,
+		"myPayout": 75
+	},
+	{
+		"id": 2,
+		"predictedNote": "Table of contents",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": 50,
+		"myBet": 0,
+		"myPayout": 0
+	},
+	{
+		"id": 3,
+		"predictedNote": "Executive summary",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": -50,
+		"myBet": 0,
+		"myPayout": 0
+	},
+	{
+		"id": 4,
+		"predictedNote": "Technical approach",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": 50,
+		"myBet": 0,
+		"myPayout": 0
+	},
+	{
+		"id": 5,
+		"predictedNote": "Design",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": 50,
+		"myBet": 0,
+		"myPayout": 0
+	},
+	{
+		"id": 6,
+		"predictedNote": "Capabilities",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": -50,
+		"myBet": 0,
+		"myPayout": 0
+	},
+	{
+		"id": 7,
+		"predictedNote": "Integration with existing systems",
+		"score": 0.3,
+		"volume": 30,
+		"pnl": -50,
+		"myBet": 0,
+		"myPayout": 0
+	}
+]

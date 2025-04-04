@@ -3,7 +3,11 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { IconRosetteDiscountCheckFilled as IconVerified } from "@tabler/icons-react";
+import {
+	IconCircleCheckFilled,
+	IconLoader,
+	IconRosetteDiscountCheckFilled as IconVerified,
+} from "@tabler/icons-react";
 import { formatDistanceToNow } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -59,12 +63,12 @@ export function MarketCard({
 							</Avatar>
 							<div className="flex flex-col">
 								<div className="flex items-center gap-2">
-									<span className="font-semibold text-[15px]">{user.name}</span>
+									<span className="font-semibold text-sm">{user.name}</span>
 									{user.is_blue_verified && (
 										<IconVerified className="size-5 text-blue-500" />
 									)}
 								</div>
-								<div className="flex items-center gap-2 text-[15px] text-muted-foreground">
+								<div className="flex items-center gap-2 text-sm text-muted-foreground">
 									<span>@{user.screen_name}</span>
 									<span>·</span>
 									<span>
@@ -75,7 +79,7 @@ export function MarketCard({
 								</div>
 							</div>
 						</div>
-						<p className="mt-4 text-[15px] line-clamp-3">{text}</p>
+						<p className="mt-4 text-sm line-clamp-3">{text}</p>
 						{mediaDetails?.[0]?.type === "photo" && (
 							// eslint-disable-next-line @next/next/no-img-element
 							<img
@@ -98,17 +102,17 @@ export function MarketCard({
 												{quoted_tweet.user.name[0]}
 											</AvatarFallback>
 										</Avatar>
-										<span className="font-semibold">
+										<span className="text-sm font-semibold">
 											{quoted_tweet.user.name}
 										</span>
 										{quoted_tweet.user.is_blue_verified && (
 											<IconVerified className="!size-[20px] text-blue-500" />
 										)}
-										<span className="text-muted-foreground">
+										<span className="text-sm text-muted-foreground">
 											@{quoted_tweet.user.screen_name}
 										</span>
 									</div>
-									<p className="mt-4 text-[15px] line-clamp-1">
+									<p className="mt-4 text-sm line-clamp-1">
 										{quoted_tweet.text}
 									</p>
 									{/* {quoted_tweet.mediaDetails?.[0]?.type === "photo" && (
@@ -130,6 +134,14 @@ export function MarketCard({
 					<Badge variant="secondary" className="bg-zinc-900 text-zinc-400">
 						{conversation_count} replies
 					</Badge>
+					{/* <Badge variant="outline" className="text-muted-foreground px-1.5">
+						{row.original.status === "Done" ? (
+							<IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
+						) : (
+							<IconLoader />
+						)}
+						{row.original.status}
+					</Badge> */}
 				</div>
 			</CardFooter>
 		</Card>
