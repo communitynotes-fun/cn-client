@@ -103,7 +103,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 					{row.getValue("volume")}
 					{myBet > 0 && (
 						<Badge variant="outline" className="text-muted-foreground px-1.5">
-							Bet: {myBet}
+							Bet: {myBet} USDC
 						</Badge>
 					)}
 				</div>
@@ -117,6 +117,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 			const value = row.getValue("pnl") as number;
 			const isNegative = value < 0;
 			const myPayout = row.original.myPayout ?? 0;
+			const isMyPayoutNegative = myPayout < 0;
 			return (
 				<div className="flex flex-col gap-1 text-left font-medium">
 					<div
@@ -129,8 +130,14 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 						{Math.abs(value)} USDC
 					</div>
 					{myPayout > 0 && (
-						<Badge variant="outline" className="text-muted-foreground px-1.5">
-							Payout: {myPayout}
+						<Badge
+							variant="outline"
+							className={cn(
+								"text-muted-foreground px-1.5",
+								isMyPayoutNegative ? "text-red-400" : "text-green-400"
+							)}
+						>
+							Payout: {myPayout} USDC
 						</Badge>
 					)}
 				</div>
