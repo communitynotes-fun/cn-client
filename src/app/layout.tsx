@@ -1,9 +1,9 @@
 import { cookies } from "next/headers";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
-import { ActiveThemeProvider } from "@/components/active-theme";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { SiteHeader } from "@/components/layout/header";
+import { ActiveThemeProvider } from "@/components/layout/active-theme";
 import {
 	Geist,
 	Geist_Mono,

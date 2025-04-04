@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggle } from "@/components/layout/mode-toggle";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
@@ -12,7 +12,7 @@ import {
 import { IconDashboard, IconListDetails } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { SidebarTrigger } from "./ui/sidebar";
+import { SidebarTrigger } from "../ui/sidebar";
 
 export function SiteHeader() {
 	const navigationItems = [
@@ -47,7 +47,7 @@ export function SiteHeader() {
 					<NavigationMenuList>
 						{navigationItems.map((item) => (
 							<NavigationMenuItem key={item.url}>
-								<Link href={item.url}>
+								<Link href={item.url} legacyBehavior passHref>
 									<NavigationMenuLink
 										className={navigationMenuTriggerStyle()}
 										active={pathname === item.url}

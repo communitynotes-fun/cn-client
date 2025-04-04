@@ -7,6 +7,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import type { Icon } from "@tabler/icons-react";
 
 export function NavMain({
 	items,
