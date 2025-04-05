@@ -71,7 +71,7 @@ const fontVariables = cn(
 	fontInter.variable
 );
 export const metadata: Metadata = {
-	title: "communitynotes.fun",
+	title: "Predict X Community Notes | communitynotes.fun",
 	description: "Predict X community notes",
 };
 
