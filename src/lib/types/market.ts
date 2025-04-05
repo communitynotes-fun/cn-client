@@ -9,4 +9,5 @@ export interface Market {
 	tweet: Tweet;
 	volume: string;
 	participants: number;
+	status?: string;
 }

@@ -12,6 +12,8 @@ const MARKET_CREATED_API_URL = "/api/multibaas/marketCreated";
 const MARKET_VOLUME_API_URL = "/api/multibaas/marketVolume";
 const MARKET_PARTICIPANTS_API_URL = "/api/multibaas/marketParticipants";
 
+const MARKET_RESOLVED_API_URL = "/api/multibaas/marketResolved";
+
 const TWITTER_CDN_URL = "/api/tweet/";
 
 export const useFetchTweet = (tweetId: string) => {
@@ -77,11 +79,22 @@ export const useFetchMarkets = (
 
 					const participants = participantsMatch?.participants || 0;
 
+					const marketResolvedResponse = await fetch(
+						`${MARKET_RESOLVED_API_URL}?${queryParams}`
+					);
+					const marketResolvedData = await marketResolvedResponse.json();
+					const marketResolvedMatch = marketResolvedData.find(
+						(p: { marketid: string }) => p.marketid === market.marketid
+					);
+
+					const status = marketResolvedMatch ? "ongoing" : "resolved";
+
 					return {
 						...market,
 						tweet: tweetData,
 						volume,
 						participants,
+						status,
 					};
 				})
 			);

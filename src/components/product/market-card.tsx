@@ -17,7 +17,6 @@ import { tokens } from "@/lib/constants";
 
 export function MarketCard({
 	market,
-	status,
 	variant = "default",
 	...props
 }: TweetProps) {
@@ -197,7 +196,7 @@ export function MarketCard({
 			)}
 			<CardFooter className="border-t border-muted-foreground/20 px-6 flex flex-col gap-4 items-start">
 				<div className="flex items-center gap-3">
-					<StatusBadge status={status} />
+					<StatusBadge status={market?.status || "ongoing"} />
 					<span className="text-sm text-muted-foreground">
 						{`${duration.hours ?? 0}h ${duration.minutes ?? 0}m ${
 							duration.seconds ?? 0
