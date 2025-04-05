@@ -31,6 +31,7 @@ export const useFetchTweet = (tweetId: string) => {
 };
 
 export const useFetchMarkets = (
+	tweetId?: string,
 	offset = 0,
 	limit = 50
 ): useFetchMarketsResponse => {
@@ -40,6 +41,7 @@ export const useFetchMarkets = (
 			const queryParams = new URLSearchParams({
 				offset: offset.toString(),
 				limit: limit.toString(),
+				tweetId: tweetId || "",
 			}).toString();
 
 			const response = await fetch(`${MARKET_CREATED_API_URL}?${queryParams}`);

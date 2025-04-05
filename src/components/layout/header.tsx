@@ -29,15 +29,15 @@ export function SiteHeader() {
 			icon: IconDashboard,
 			startsWith: "/market",
 		},
-		{
-			title: "My Positions",
-			url: routes.myPositions,
-			icon: IconListDetails,
-			startsWith: routes.myPositions,
-		},
+		// {
+		// 	title: "My Positions",
+		// 	url: routes.myPositions,
+		// 	icon: IconListDetails,
+		// 	startsWith: routes.myPositions,
+		// },
 	];
 
-	const pathname = usePathname();
+	// const pathname = usePathname();
 
 	const { ready, authenticated, login } = usePrivy();
 
@@ -48,11 +48,11 @@ export function SiteHeader() {
 	return (
 		<header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b">
 			<div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
-				<SidebarTrigger className="-ml-1 md:hidden" />
-				<Separator
-					orientation="vertical"
-					className="mx-2 data-[orientation=vertical]:h-4 md:hidden"
-				/>
+				{/* <SidebarTrigger className="-ml-1 md:hidden" /> */}
+				{/* <Separator
+						orientation="vertical"
+						className="mx-2 data-[orientation=vertical]:h-4 md:hidden"
+					/> */}
 				<Link href={routes.markets} className="">
 					<MiniBrandLogo className="sm:hidden" />
 					<BrandLogo className="hidden sm:block" />
@@ -61,7 +61,7 @@ export function SiteHeader() {
 					orientation="vertical"
 					className="hidden md:block mx-2 data-[orientation=vertical]:h-4"
 				/>
-				<NavigationMenu className="hidden md:block">
+				{/* <NavigationMenu className="hidden md:block">
 					<NavigationMenuList>
 						{navigationItems.map((item) => (
 							<NavigationMenuItem key={item.url}>
@@ -82,7 +82,7 @@ export function SiteHeader() {
 							</NavigationMenuItem>
 						))}
 					</NavigationMenuList>
-				</NavigationMenu>
+				</NavigationMenu> */}
 				<div className="ml-auto flex items-center gap-2">
 					{!isMobile && <ModeToggle />}
 					<div className="flex items-center gap-1">

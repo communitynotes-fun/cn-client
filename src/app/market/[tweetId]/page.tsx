@@ -15,15 +15,19 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { SubmitPredictionModal } from "@/components/modals/submit-prediction";
 import { PredictNoNoteModal } from "@/components/modals/predict-no-note";
 import { formatDistanceToNow } from "date-fns";
-export default function Page({
-	params,
-}: {
-	params: Promise<{ tweetId: string }>;
-}) {
+import { useFetchMarkets } from "@/hooks/use-fetch-markets";
+
+export default function Page() {
+	const params = useParams<{ tweetId: string }>();
+
+	const { markets, isFetching } = useFetchMarkets(params.tweetId);
+
+	console.log("markets", markets);
+
 	const tweetData = {
 		id_str: "1718625872909869056",
 		text: "This was done in the name of working class populism, but there is no way in hell the working class voted for this.",
@@ -94,7 +98,7 @@ export default function Page({
 			</Button>
 			<div className="flex flex-col gap-4 p-4 @5xl:flex-row">
 				<div className="flex flex-col gap-4 @5xl:min-w-[320px] @5xl:max-w-[400px]">
-					<MarketCard {...tweetData} className="h-fit" />
+					<MarketCard market={markets[0]} {...tweetData} className="h-fit" />
 				</div>
 				<div className="flex flex-col gap-4">
 					<div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs @xl/main:grid-cols-2">
