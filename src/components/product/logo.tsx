@@ -16,7 +16,7 @@ export function BrandLogo({ className }: { className?: string }) {
 				width="172.54"
 				height="30"
 				rx="4"
-				fill="#FC9A02"
+				fill="#FF7EE5"
 			/>
 			<path
 				fill-rule="evenodd"

@@ -16,7 +16,7 @@ export function MiniBrandLogo({ className }: { className?: string }) {
 				width="24"
 				height="24"
 				rx="4"
-				fill="#FC9A02"
+				fill="#FF7EE5"
 			/>
 			<path
 				fill-rule="evenodd"
