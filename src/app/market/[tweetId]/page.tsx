@@ -20,12 +20,16 @@ import { SubmitPredictionModal } from "@/components/modals/submit-prediction";
 import { PredictNoNoteModal } from "@/components/modals/predict-no-note";
 import { formatDistanceToNow } from "date-fns";
 import { useFetchMarkets } from "@/hooks/use-fetch-markets";
-
+import { useFetchPredictions } from "@/hooks/use-fetch-predictions";
 export default function Page() {
 	const params = useParams<{ tweetId: string }>();
 
 	const { markets, isFetching } = useFetchMarkets(params.tweetId);
 
+	// const { predictions, isFetching: isFetchingPredictions } =
+	// 	useFetchPredictions(markets[0]?.marketid || "");
+
+	// console.log("predictions", predictions);
 	console.log("markets", markets);
 
 	const tweetData = {
@@ -84,6 +88,26 @@ export default function Page() {
 	const onClickBack = () => {
 		router.back();
 	};
+
+	// Loading state check
+	if (isFetching ) {
+		return (
+			<div className="flex flex-1 justify-center items-center">
+				<p>Loading...</p>{" "}
+				{/* Replace with a spinner or skeleton loader if preferred */}
+			</div>
+		);
+	}
+
+	// Ensure market data exists before rendering the main content
+	// This prevents errors if fetching completes but returns no data initially
+	if (!markets || markets.length === 0) {
+		return (
+			<div className="flex flex-1 justify-center items-center">
+				<p>Market not found or failed to load.</p>
+			</div>
+		);
+	}
 
 	return (
 		<div className="@container/main flex flex-1 flex-col">
