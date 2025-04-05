@@ -1,7 +1,7 @@
 "use client";
 
 import { PrivyProvider } from "@privy-io/react-auth";
-import { baseSepolia } from "viem/chains";
+import { polygon } from "viem/chains";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
 	const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "";
@@ -15,8 +15,8 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 					showWalletLoginFirst: false,
 					walletChainType: "ethereum-only",
 				},
-				defaultChain: baseSepolia,
-				supportedChains: [baseSepolia],
+				defaultChain: polygon,
+				supportedChains: [polygon],
 				loginMethods: ["wallet"],
 				fundingMethodConfig: {
 					moonpay: {

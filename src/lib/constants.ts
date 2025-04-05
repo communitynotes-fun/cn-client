@@ -4,4 +4,9 @@ export const tokens = {
 		symbol: "ETH",
 		decimals: 18,
 	},
+	POL: {
+		name: "Polygon",
+		symbol: "POL",
+		decimals: 18,
+	},
 };

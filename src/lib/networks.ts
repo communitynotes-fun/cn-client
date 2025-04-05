@@ -1,9 +1,9 @@
-import { baseSepolia } from "viem/chains";
+import { polygon } from "viem/chains";
 
 export const networks = {
-	baseSepolia: {
-		iconUrl: "/images/chains/base.svg",
-		...baseSepolia,
+	polygon: {
+		iconUrl: "/images/chains/polygon.svg",
+		...polygon,
 	},
 };
 

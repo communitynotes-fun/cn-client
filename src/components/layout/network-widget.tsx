@@ -29,7 +29,7 @@ export function NetworkWidget() {
   const chainId = wallet?.chainId || "unknown";
 
   const currentNetwork = !authenticated
-    ? networks.baseSepolia
+    ? networks.polygon
     : Object.values(networks).find(
         (network) => `eip155:${network.id}` === chainId,
       ) || { name: "Unsupported Network", iconUrl: undefined };

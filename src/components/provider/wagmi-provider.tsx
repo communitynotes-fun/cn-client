@@ -3,37 +3,38 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig } from "@privy-io/wagmi";
 import { http } from "wagmi";
-import { baseSepolia, mainnet } from "viem/chains";
+import { polygon, mainnet } from "viem/chains";
 
-type ChainId = 84532;
+type ChainId = 137 | 1;
 
 const TRANSPORTS: Record<ChainId, ReturnType<typeof http>> = {
-	[baseSepolia.id]: http(),
+	[polygon.id]: http(),
+	[mainnet.id]: http(),
 };
 
 const config = createConfig({
-	chains: [baseSepolia, mainnet],
+	chains: [polygon, mainnet],
 	transports: {
-		[baseSepolia.id]: http(),
+		[polygon.id]: http(),
 		[mainnet.id]: http(),
 	},
 });
 
-const createCustomConfig = (chain: typeof baseSepolia) =>
+const createCustomConfig = (chain: typeof polygon) =>
 	createConfig({
 		chains: [chain],
 		transports: {
-			[chain.id as ChainId]: TRANSPORTS[chain.id as ChainId],
+			[chain.id]: http(),
 		},
 		ssr: true,
 	});
 
 export const getConfig = (chainId: number | undefined) => {
 	switch (chainId) {
-		case baseSepolia.id:
-			return createCustomConfig(baseSepolia);
+		case polygon.id:
+			return createCustomConfig(polygon);
 		default:
-			return createCustomConfig(baseSepolia);
+			return createCustomConfig(polygon);
 	}
 };
 
