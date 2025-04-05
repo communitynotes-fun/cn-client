@@ -43,13 +43,13 @@ export interface Media {
 }
 
 export interface TweetUser {
-	id_str: string;
+	id_str?: string;
 	name: string;
 	profile_image_url_https: string;
 	screen_name: string;
-	verified: boolean;
-	is_blue_verified: boolean;
-	profile_image_shape: string;
+	verified?: boolean;
+	is_blue_verified?: boolean;
+	profile_image_shape?: string;
 }
 
 export interface EditControl {
@@ -134,4 +134,31 @@ export interface Entity {
 			urlType: string;
 		};
 	};
+}
+
+export interface TweetProps {
+	text: string;
+	user: TweetUser;
+	created_at: string;
+	id_str?: string;
+	mediaDetails?: Array<{
+		media_url_https: string;
+		type: string;
+	}>;
+	quoted_tweet?: {
+		text: string;
+		user: TweetUser;
+		created_at: string;
+		mediaDetails?: Array<{
+			media_url_https: string;
+			type: string;
+		}>;
+	};
+	conversation_count?: number;
+	className?: string;
+	status: string;
+	volume: number;
+	participants: number;
+	endTime: string;
+	variant?: "default" | "compact";
 }

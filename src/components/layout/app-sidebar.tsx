@@ -10,22 +10,26 @@ import {
 import {
 	Sidebar,
 	SidebarContent,
+	SidebarFooter,
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { NavMain } from "@/components/nav-main";
+import { routes } from "@/lib/config";
+import { NavSecondary } from "../nav-secondary";
+import Link from "next/link";
 
 const navItems = [
 	{
-		title: "Dashboard",
-		url: "#",
+		title: "Markets",
+		url: routes.markets,
 		icon: IconDashboard,
 	},
 	{
-		title: "My Bets",
-		url: "#",
+		title: "My Positions",
+		url: routes.myPositions,
 		icon: IconListDetails,
 	},
 ];
@@ -40,12 +44,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 							asChild
 							className="data-[slot=sidebar-menu-button]:!p-1.5"
 						>
-							<a href="#">
+							<Link href="#">
 								<IconInnerShadowTop className="!size-5" />
 								<span className="text-base font-semibold">
 									communitynotes.fun
 								</span>
-							</a>
+							</Link>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>
@@ -53,6 +57,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarContent>
 				<NavMain items={navItems} />
 			</SidebarContent>
+			<SidebarFooter>
+				<NavSecondary items={[]} />
+			</SidebarFooter>
 		</Sidebar>
 	);
 }

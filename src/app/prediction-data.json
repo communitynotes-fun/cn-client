@@ -5,7 +5,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": 50,
-		"myBet": 50,
+		"myPosition": 50,
 		"myPayout": 75
 	},
 	{
@@ -14,7 +14,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": 50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	},
 	{
@@ -23,7 +23,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": -50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	},
 	{
@@ -32,7 +32,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": 50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	},
 	{
@@ -41,7 +41,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": 50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	},
 	{
@@ -50,7 +50,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": -50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	},
 	{
@@ -59,7 +59,7 @@
 		"score": 0.3,
 		"volume": 30,
 		"pnl": -50,
-		"myBet": 0,
+		"myPosition": 0,
 		"myPayout": 0
 	}
 ]

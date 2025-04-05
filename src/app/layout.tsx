@@ -17,7 +17,7 @@ import "@/app/globals.css";
 import "@/app/theme.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
-
+import { SiteFooter } from "@/components/layout/footer";
 const META_THEME_COLORS = {
 	light: "#ffffff",
 	dark: "#09090b",
@@ -91,7 +91,7 @@ export default async function DashboardLayout({
 				className={cn(
 					"bg-background overscroll-none font-sans antialiased",
 					activeThemeValue ? `theme-${activeThemeValue}` : "",
-					isScaled ? "theme-scaled" : "",
+					"theme-scaled",
 					fontVariables
 				)}
 			>
@@ -115,6 +115,7 @@ export default async function DashboardLayout({
 							<SidebarInset>
 								<SiteHeader />
 								<div className="flex flex-1 flex-col">{children}</div>
+								<SiteFooter />
 							</SidebarInset>
 						</SidebarProvider>
 					</ActiveThemeProvider>

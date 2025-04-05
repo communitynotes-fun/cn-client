@@ -13,18 +13,21 @@ import { IconDashboard, IconListDetails } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
+import { routes } from "@/lib/config";
 
 export function SiteHeader() {
 	const navigationItems = [
 		{
 			title: "Markets",
-			url: "/",
+			url: routes.markets,
 			icon: IconDashboard,
+			startsWith: "/market",
 		},
 		{
-			title: "My Bets",
-			url: "/my-bets",
+			title: "My Positions",
+			url: routes.myPositions,
 			icon: IconListDetails,
+			startsWith: routes.myPositions,
 		},
 	];
 
@@ -50,7 +53,12 @@ export function SiteHeader() {
 								<Link href={item.url} legacyBehavior passHref>
 									<NavigationMenuLink
 										className={navigationMenuTriggerStyle()}
-										active={pathname === item.url}
+										active={
+											pathname === item.url ||
+											(item.startsWith &&
+												pathname.startsWith(item.startsWith)) ||
+											false
+										}
 									>
 										<item.icon className="size-4" />
 										{item.title}
@@ -61,17 +69,22 @@ export function SiteHeader() {
 					</NavigationMenuList>
 				</NavigationMenu>
 				<div className="ml-auto flex items-center gap-2">
-					<Button variant="ghost" asChild size="sm" className="hidden sm:flex">
-						<a
+					<ModeToggle />
+					<Button
+						variant="outline"
+						asChild
+						size="sm"
+						className="hidden sm:flex"
+					>
+						<Link
 							href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
 							rel="noopener noreferrer"
 							target="_blank"
 							className="dark:text-foreground"
 						>
-							GitHub
-						</a>
+							Connect Wallet
+						</Link>
 					</Button>
-					<ModeToggle />
 				</div>
 			</div>
 		</header>

@@ -57,7 +57,7 @@ export const schema = z.object({
 	score: z.number(),
 	volume: z.number(),
 	pnl: z.number(),
-	myBet: z.number().optional(),
+	myPosition: z.number().optional(),
 	myPayout: z.number().optional(),
 });
 
@@ -97,13 +97,13 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 		accessorKey: "volume",
 		header: "Volume",
 		cell: ({ row }) => {
-			const myBet = row.original.myBet ?? 0;
+			const myPosition = row.original.myPosition ?? 0;
 			return (
 				<div className="flex flex-col gap-1 text-left font-medium">
 					{row.getValue("volume")}
-					{myBet > 0 && (
+					{myPosition > 0 && (
 						<Badge variant="outline" className="text-muted-foreground px-1.5">
-							Bet: {myBet} USDC
+							Position: {myPosition} USDC
 						</Badge>
 					)}
 				</div>

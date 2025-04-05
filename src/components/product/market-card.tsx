@@ -3,44 +3,16 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { IconRosetteDiscountCheckFilled as IconVerified } from "@tabler/icons-react";
+import {
+	IconExternalLink,
+	IconRosetteDiscountCheckFilled as IconVerified,
+} from "@tabler/icons-react";
 import { formatDistanceToNow, intervalToDuration } from "date-fns";
 import { cn } from "@/lib/utils";
 import { StatusBadge } from "./status-badge";
 import { useState, useEffect } from "react";
-
-interface TweetUser {
-	name: string;
-	screen_name: string;
-	profile_image_url_https: string;
-	is_blue_verified: boolean;
-}
-
-interface TweetProps {
-	text: string;
-	user: TweetUser;
-	created_at: string;
-	mediaDetails?: Array<{
-		media_url_https: string;
-		type: string;
-	}>;
-	quoted_tweet?: {
-		text: string;
-		user: TweetUser;
-		created_at: string;
-		mediaDetails?: Array<{
-			media_url_https: string;
-			type: string;
-		}>;
-	};
-	conversation_count?: number;
-	className?: string;
-	status: string;
-	volume: number;
-	participants: number;
-	endTime: string;
-	variant?: "default" | "compact";
-}
+import { TweetProps } from "@/lib/types/tweet";
+import { Button } from "../ui/button";
 
 export function MarketCard({
 	text,
@@ -54,6 +26,7 @@ export function MarketCard({
 	participants,
 	endTime,
 	variant = "default",
+	id_str,
 	...props
 }: TweetProps) {
 	const [duration, setDuration] = useState(() =>
@@ -80,32 +53,46 @@ export function MarketCard({
 		<Card className={cn("@container/card", props.className)} {...props}>
 			<CardContent className="">
 				<div className="flex items-start gap-3">
-					<div className="flex flex-col">
-						<div className="flex items-center gap-3">
-							<Avatar className="h-[40px] w-[40px]">
-								<AvatarImage
-									src={user.profile_image_url_https}
-									alt={user.name}
-								/>
-								<AvatarFallback>{user.name[0]}</AvatarFallback>
-							</Avatar>
-							<div className="flex flex-col">
-								<div className="flex items-center gap-2">
-									<span className="font-semibold text-sm">{user.name}</span>
-									{user.is_blue_verified && (
-										<IconVerified className="size-5 text-blue-500" />
-									)}
-								</div>
-								<div className="flex items-center gap-2 text-sm text-muted-foreground">
-									<span>@{user.screen_name}</span>
-									<span>·</span>
-									<span>
-										{formatDistanceToNow(new Date(created_at), {
-											addSuffix: true,
-										})}
-									</span>
+					<div className="flex flex-col w-full">
+						<div className="flex items-center gap-3 justify-between">
+							<div className="flex items-center gap-3">
+								<Avatar className="h-[40px] w-[40px]">
+									<AvatarImage
+										src={user.profile_image_url_https}
+										alt={user.name}
+									/>
+									<AvatarFallback>{user.name[0]}</AvatarFallback>
+								</Avatar>
+								<div className="flex flex-col">
+									<div className="flex items-center gap-2">
+										<span className="font-semibold text-sm">{user.name}</span>
+										{user.is_blue_verified && (
+											<IconVerified className="size-5 text-blue-500" />
+										)}
+									</div>
+									<div className="flex items-center gap-2 text-sm text-muted-foreground">
+										<span>@{user.screen_name}</span>
+										<span>·</span>
+										<span>
+											{formatDistanceToNow(new Date(created_at), {
+												addSuffix: true,
+											})}
+										</span>
+									</div>
 								</div>
 							</div>
+							{variant === "default" && id_str && (
+								<a
+									href={`https://twitter.com/${user.screen_name}/status/${id_str}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-muted-foreground hover:text-primary transition-colors"
+								>
+									<Button variant="ghost" size="sm">
+										<IconExternalLink className="size-6" />
+									</Button>
+								</a>
+							)}
 						</div>
 						<p
 							className={cn(
@@ -178,14 +165,16 @@ export function MarketCard({
 					<div className="grid grid-cols-2 w-full">
 						<Badge
 							variant="outline"
-							className="text-yellow-500 py-2 px-3 pr-6 flex items-center gap-4 w-full transition-all duration-300 hover:bg-yellow-500/20 bg-yellow-500/10"
+							className="text-yellow-500 py-2 px-3 pr-6 flex items-center justify-start gap-4 w-full transition-all duration-300 hover:bg-yellow-500/20 bg-yellow-500/10"
 						>
-							<span>No Community Note</span>
+							<span className="text-yellow-500 w-full break-words text-wrap">
+								No Community Note
+							</span>
 							<span className="text-yellow-500">30%</span>
 						</Badge>
 						<Badge
 							variant="outline"
-							className="text-green-500 py-2 px-3 pr-6 flex items-center gap-4 w-full border-l-0 transition-all duration-300 hover:bg-blue-500/20 bg-blue-500/10"
+							className="text-green-500 py-2 px-3 pr-6 flex items-center justify-start gap-4 w-full border-l-0 transition-all duration-300 hover:bg-blue-500/20 bg-blue-500/10"
 						>
 							<span className="text-blue-500 w-full break-words text-wrap">
 								Will Get Community Note
