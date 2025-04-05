@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/drawer";
 import { useState } from "react";
 import { useEnsName } from "wagmi";
+import { mainnet } from "viem/chains";
 
 export function AccountWidget() {
 	const { user, logout } = usePrivy();
@@ -28,7 +29,7 @@ export function AccountWidget() {
 
 	const { data: name } = useEnsName({
 		address: user?.wallet?.address as `0x${string}`,
-		chainId: 1,
+		chainId: mainnet.id,
 	});
 
 	if (!isMobile) {
@@ -44,10 +45,12 @@ export function AccountWidget() {
 							<AvatarFallback>0x</AvatarFallback>
 						</Avatar>
 						<span className="hidden sm:block">
-							{shortenAddress(user?.wallet?.address || "")}
+							{name || shortenAddress(user?.wallet?.address || "")}
 						</span>
 						<span className="text-sm sm:hidden">
-							{shortenAddress(user?.wallet?.address || "", "extra-short")}
+							{name
+								? name
+								: shortenAddress(user?.wallet?.address || "", "extra-short")}
 						</span>
 					</Button>
 				</DropdownMenuTrigger>

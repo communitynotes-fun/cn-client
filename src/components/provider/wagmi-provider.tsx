@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider, createConfig } from "@privy-io/wagmi";
 import { http } from "wagmi";
-import { baseSepolia } from "viem/chains";
+import { baseSepolia, mainnet } from "viem/chains";
 
 type ChainId = 84532;
 
@@ -12,9 +12,10 @@ const TRANSPORTS: Record<ChainId, ReturnType<typeof http>> = {
 };
 
 const config = createConfig({
-	chains: [baseSepolia],
+	chains: [baseSepolia, mainnet],
 	transports: {
 		[baseSepolia.id]: http(),
+		[mainnet.id]: http(),
 	},
 });
 
