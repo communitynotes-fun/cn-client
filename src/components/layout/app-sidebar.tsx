@@ -27,11 +27,11 @@ const navItems = [
 		url: routes.markets,
 		icon: IconDashboard,
 	},
-	// {
-	// 	title: "My Positions",
-	// 	url: routes.myPositions,
-	// 	icon: IconListDetails,
-	// },
+	{
+		title: "My Positions",
+		url: routes.myPositions,
+		icon: IconListDetails,
+	},
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

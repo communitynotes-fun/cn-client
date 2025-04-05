@@ -17,8 +17,16 @@ import { tokens } from "@/lib/constants";
 
 export function MarketCard({
 	market,
+	text,
+	user,
+	created_at,
+	mediaDetails,
+	quoted_tweet,
 	status,
+	volume,
+	participants,
 	variant = "default",
+	id_str,
 	...props
 }: TweetProps) {
 	console.log("market.deadline", market?.deadline);
@@ -85,7 +93,7 @@ export function MarketCard({
 									</div>
 								</div>
 							</div>
-							{variant === "default" && market?.tweet.id_str && (
+							{variant === "default" && id_str && (
 								<a
 									href={`https://twitter.com/${market?.tweet.user.screen_name}/status/${market?.tweet.id_str}`}
 									target="_blank"

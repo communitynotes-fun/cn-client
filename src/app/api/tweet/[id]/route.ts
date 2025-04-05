@@ -7,9 +7,8 @@ type Params = {
 };
 
 export async function GET(request: NextRequest, props: Params) {
-	const params = await props.params;
-
-	try {
+    const params = await props.params;
+    try {
 		const tweetId = params.id;
 
 		// Construct the Twitter CDN URL

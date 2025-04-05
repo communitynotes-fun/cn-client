@@ -42,68 +42,28 @@ export async function GET(request: NextRequest) {
 	const searchParams = request.nextUrl.searchParams;
 	const offset = searchParams.get("offset") || "0";
 	const limit = searchParams.get("limit") || "50";
-	const tweetId = searchParams.get("tweetId"); // Extract tweetId
+
+	// 3. Construct the query parameters for the external API call
+	const queryParams = new URLSearchParams({ offset, limit }).toString();
 
 	// 4. Define the external API details
+	const eventQuery = "MarketCreated";
 	const hostname =
 		process.env.CURVEGRID_APP_DEPLOYMENT_HOST?.replace("/api/v0", "").replace(
 			"https://",
 			""
 		) || "bax2nz6gvnaf7ouej32tykbzeu.multibaas.com";
-	// The base URL for queries, offset and limit are now part of the POST body or default query params for the POST endpoint
-	const externalApiUrl = `https://${hostname}/api/v0/queries?offset=${offset}&limit=${limit}`;
-
-	// Define the request body based on the new API requirements
-	// Use 'const' as the object reference itself isn't reassigned
-	const requestBody: any = {
-		events: [
-			{
-				select: [
-					{ name: "marketId", type: "input", alias: "", inputIndex: 0 },
-					{ name: "creator", type: "input", alias: "", inputIndex: 1 },
-					{ name: "tweetId", type: "input", alias: "", inputIndex: 2 },
-					{ name: "creationTime", type: "input", alias: "", inputIndex: 3 },
-					{ name: "deadline", type: "input", alias: "", inputIndex: 4 },
-				],
-				eventName: "MarketCreated(uint256,address,string,uint256,uint256)",
-				// Filter is removed from the base definition
-			},
-		],
-		groupBy: "marketId",
-	};
-
-	// Conditionally add the filter if tweetId is present
-	if (tweetId) {
-		requestBody.events[0].filter = {
-			rule: "and",
-			children: [
-				{
-					rule: "and",
-					children: [
-						{
-							value: tweetId, // Use the extracted tweetId
-							operator: "Equal",
-							fieldType: "input",
-							inputIndex: 2, // Correct index for tweetId
-						},
-					],
-				},
-			],
-		};
-		console.log("Filtering by tweetId:", tweetId); // Optional: log when filtering
-	}
+	const externalApiUrl = `https://${hostname}/api/v0/queries/${eventQuery}/results?${queryParams}`;
 
 	try {
-		// 5. Make the fetch call to the external MultiBaas API using POST
-		console.log(`Posting to MultiBaas: ${externalApiUrl}`);
+		// 5. Make the fetch call to the external MultiBaas API
+		console.log(`Fetching from MultiBaas: ${externalApiUrl}`);
 		const externalResponse = await fetch(externalApiUrl, {
-			method: "POST", // Changed from GET to POST
+			method: "GET",
 			headers: {
 				Authorization: `Bearer ${apiKey}`,
-				"Content-Type": "application/json", // Added Content-Type header
 				Accept: "application/json",
 			},
-			body: JSON.stringify(requestBody), // Added the request body
 			// cache: 'no-store', // Optional: Uncomment to disable fetch caching
 		});
 

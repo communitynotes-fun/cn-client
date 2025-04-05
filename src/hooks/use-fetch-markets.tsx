@@ -31,7 +31,6 @@ export const useFetchTweet = (tweetId: string) => {
 };
 
 export const useFetchMarkets = (
-	tweetId?: string,
 	offset = 0,
 	limit = 50
 ): useFetchMarketsResponse => {
@@ -41,7 +40,6 @@ export const useFetchMarkets = (
 			const queryParams = new URLSearchParams({
 				offset: offset.toString(),
 				limit: limit.toString(),
-				tweetId: tweetId || "",
 			}).toString();
 
 			const response = await fetch(`${MARKET_CREATED_API_URL}?${queryParams}`);
@@ -75,8 +73,7 @@ export const useFetchMarkets = (
 						(p: { marketid: string }) => p.marketid === market.marketid
 					);
 
-					const participants =
-						new Set(participantsMatch?.participants || []).size || 0;
+					const participants = participantsMatch?.participants || 0;
 
 					return {
 						...market,
