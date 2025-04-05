@@ -15,6 +15,7 @@ import { TweetProps } from "@/lib/types/tweet";
 import { Button } from "../ui/button";
 
 export function MarketCard({
+	market,
 	text,
 	user,
 	created_at,
@@ -48,6 +49,8 @@ export function MarketCard({
 		return () => clearInterval(timer);
 	}, [endTime]);
 
+	console.log(market);
+
 	return (
 		<Card className={cn("@container/card", props.className)} {...props}>
 			<CardContent className="">
@@ -57,32 +60,39 @@ export function MarketCard({
 							<div className="flex items-center gap-3">
 								<Avatar className="h-[40px] w-[40px]">
 									<AvatarImage
-										src={user.profile_image_url_https}
-										alt={user.name}
+										src={market?.tweet.user.profile_image_url_https}
+										alt={market?.tweet.user.name}
 									/>
-									<AvatarFallback>{user.name[0]}</AvatarFallback>
+									<AvatarFallback>{market?.tweet.user.name[0]}</AvatarFallback>
 								</Avatar>
 								<div className="flex flex-col">
 									<div className="flex items-center gap-2">
-										<span className="font-semibold text-sm">{user.name}</span>
-										{user.is_blue_verified && (
+										<span className="font-semibold text-sm">
+											{market?.tweet.user.name}
+										</span>
+										{market?.tweet.user.is_blue_verified && (
 											<IconVerified className="size-5 text-blue-500" />
 										)}
 									</div>
 									<div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-										<span>@{user.screen_name}</span>
+										<span>@{market?.tweet.user.screen_name}</span>
 										<span>·</span>
-										<span>
-											{formatDistanceToNow(new Date(created_at), {
-												addSuffix: true,
-											})}
-										</span>
+										{market && (
+											<span>
+												{formatDistanceToNow(
+													new Date(market?.tweet.created_at),
+													{
+														addSuffix: true,
+													}
+												)}
+											</span>
+										)}
 									</div>
 								</div>
 							</div>
 							{variant === "default" && id_str && (
 								<a
-									href={`https://twitter.com/${user.screen_name}/status/${id_str}`}
+									href={`https://twitter.com/${market?.tweet.user.screen_name}/status/${market?.tweet.id_str}`}
 									target="_blank"
 									rel="noopener noreferrer"
 									className="text-muted-foreground hover:text-primary transition-colors"
@@ -99,12 +109,12 @@ export function MarketCard({
 								variant === "compact" && "line-clamp-2"
 							)}
 						>
-							{text}
+							{market?.tweet.text}
 						</p>
-						{mediaDetails?.[0]?.type === "photo" && (
+						{market?.tweet.mediaDetails?.[0]?.type === "photo" && (
 							// eslint-disable-next-line @next/next/no-img-element
 							<img
-								src={mediaDetails[0].media_url_https}
+								src={market?.tweet.mediaDetails[0].media_url_https}
 								alt="Tweet media"
 								className={cn(
 									"mt-4 w-full rounded-md object-cover object-center",
@@ -113,27 +123,27 @@ export function MarketCard({
 							/>
 						)}
 
-						{quoted_tweet && (
+						{market?.tweet.quoted_tweet && (
 							<Card className="@container/card mt-4">
 								<CardContent className="px-4">
 									<div className="flex items-center gap-2 flex-wrap">
 										<Avatar className="size-[20px]">
 											<AvatarImage
-												src={quoted_tweet.user.profile_image_url_https}
-												alt={quoted_tweet.user.name}
+												src={market?.tweet.quoted_tweet.user.profile_image_url_https}
+												alt={market?.tweet.quoted_tweet.user.name}
 											/>
 											<AvatarFallback>
-												{quoted_tweet.user.name[0]}
+												{market?.tweet.quoted_tweet.user.name[0]}
 											</AvatarFallback>
 										</Avatar>
 										<span className="text-sm font-semibold">
-											{quoted_tweet.user.name}
+											{market?.tweet.quoted_tweet.user.name}
 										</span>
-										{quoted_tweet.user.is_blue_verified && (
+										{market?.tweet.quoted_tweet.user.is_blue_verified && (
 											<IconVerified className="!size-[20px] text-blue-500" />
 										)}
 										<span className="text-sm text-muted-foreground">
-											@{quoted_tweet.user.screen_name}
+											@{market?.tweet.quoted_tweet.user.screen_name}
 										</span>
 									</div>
 									<p
@@ -142,13 +152,14 @@ export function MarketCard({
 											variant === "compact" && "line-clamp-1"
 										)}
 									>
-										{quoted_tweet.text}
+										{market?.tweet.quoted_tweet.text}
 									</p>
 									{variant === "default" &&
-										quoted_tweet.mediaDetails?.[0]?.type === "photo" && (
+										market?.tweet.quoted_tweet.mediaDetails?.[0]?.type ===
+											"photo" && (
 											// eslint-disable-next-line @next/next/no-img-element
 											<img
-												src={quoted_tweet.mediaDetails[0].media_url_https}
+												src={market?.tweet.quoted_tweet.mediaDetails[0].media_url_https}
 												alt="Tweet media"
 												className="mt-4 w-full object-cover object-center max-h-60"
 											/>

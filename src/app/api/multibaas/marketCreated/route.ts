@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
 
 		// 8. Send the relevant part of the data (the 'result' object) back to your frontend client
 		// Or you could send just data.result.rows if that's all you need
-		return NextResponse.json(data.result);
+		return NextResponse.json(data.result.rows);
 		// --- End of Adjustment ---
 	} catch (error: unknown) {
 		console.error("Error in API route (marketCreated):", error);

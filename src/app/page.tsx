@@ -61,7 +61,7 @@ export default function Page() {
 
 	const { ready, authenticated } = usePrivy();
 
-	const { data: markets, isLoading, error } = useFetchMarkets();
+	const { markets, isFetching } = useFetchMarkets();
 
 	console.log("markets", markets);
 
@@ -110,21 +110,25 @@ export default function Page() {
 					</Dialog>
 				</div>
 				<div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-3">
-					<Link href="/market/123">
-						<MarketCard {...tweetData} variant="compact" className="" />
-					</Link>
-					<Link href="/market/123">
-						<MarketCard {...tweetData} variant="compact" className="" />
-					</Link>
-					<Link href="/market/123">
-						<MarketCard {...tweetData} variant="compact" className="" />
-					</Link>
-					<Link href="/market/123">
-						<MarketCard {...tweetData} variant="compact" className="" />
-					</Link>
-					<Link href="/market/123">
-						<MarketCard {...tweetData} variant="compact" className="" />
-					</Link>
+					{isFetching ? (
+						<div>Loading...</div>
+					) : markets && markets.length > 0 ? (
+						markets.map((market) => (
+							<Link
+								href={`/market/${market.tweet.id_str}`}
+								key={market.marketid}
+							>
+								<MarketCard
+									market={market}
+									{...tweetData}
+									variant="compact"
+									className="h-full"
+								/>
+							</Link>
+						))
+					) : (
+						<div>No markets found</div>
+					)}
 				</div>
 			</div>
 		</div>

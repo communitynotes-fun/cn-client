@@ -1,3 +1,5 @@
+import { Market } from "./market";
+
 export interface Tweet {
 	__typename: string;
 	lang: string;
@@ -137,6 +139,7 @@ export interface Entity {
 }
 
 export interface TweetProps {
+	market?: Market;
 	text: string;
 	user: TweetUser;
 	created_at: string;

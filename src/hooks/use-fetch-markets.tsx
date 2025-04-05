@@ -1,31 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
+import { Market } from "@/lib/types/market";
 
-interface MarketRow {
-	creationtime: string;
-	creator: string;
-	deadline: string;
-	marketid: string;
-	tweetid: string;
-}
-
-interface MarketResult {
-	rows: MarketRow[];
-}
-
-interface FetchMarketsOptions {
-	offset?: number;
-	limit?: number;
+interface useFetchMarketsResponse {
+	markets: Market[];
+	isFetching: boolean;
 }
 
 const MARKET_CREATED_API_URL = "/api/multibaas/marketCreated";
+const TWITTER_CDN_URL = "/api/tweet/";
 
-export const useFetchMarkets = ({
+export const useFetchMarkets = (
 	offset = 0,
-	limit = 50,
-}: FetchMarketsOptions = {}) => {
-	const query = useQuery({
-		queryKey: ["markets", offset, limit],
-		queryFn: async (): Promise<MarketResult> => {
+	limit = 50
+): useFetchMarketsResponse => {
+	const { data, isFetching } = useQuery({
+		queryKey: ["markets"],
+		queryFn: async () => {
 			const queryParams = new URLSearchParams({
 				offset: offset.toString(),
 				limit: limit.toString(),
@@ -33,18 +23,28 @@ export const useFetchMarkets = ({
 
 			const response = await fetch(`${MARKET_CREATED_API_URL}?${queryParams}`);
 
-			if (!response.ok) {
-				throw new Error(`Failed to fetch markets: ${response.statusText}`);
-			}
+			const responseData = await response.json();
+			const dataWithTweet = await Promise.all(
+				responseData.map(async (market: Market) => {
+					const tweetUrl = `${TWITTER_CDN_URL}${market.tweetid}`;
 
-			return response.json();
+					const tweetResponse = await fetch(tweetUrl);
+					const tweetData = await tweetResponse.json();
+
+					return {
+						...market,
+						tweet: tweetData,
+					};
+				})
+			);
+
+			return dataWithTweet;
 		},
 		refetchOnWindowFocus: false,
 	});
 
 	return {
-		...query,
-		markets: query.data?.rows || [],
-		isFetching: query.isFetching,
+		markets: data || [],
+		isFetching,
 	};
 };
