@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
 type Params = {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 };
 
-export async function GET(request: NextRequest, { params }: Params) {
-	try {
+export async function GET(request: NextRequest, props: Params) {
+    const params = await props.params;
+    try {
 		const tweetId = params.id;
 
 		// Construct the Twitter CDN URL
