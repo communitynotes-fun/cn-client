@@ -20,7 +20,6 @@ export function MarketCard({
 	created_at,
 	mediaDetails,
 	quoted_tweet,
-	conversation_count,
 	status,
 	volume,
 	participants,
@@ -70,7 +69,7 @@ export function MarketCard({
 											<IconVerified className="size-5 text-blue-500" />
 										)}
 									</div>
-									<div className="flex items-center gap-2 text-sm text-muted-foreground">
+									<div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
 										<span>@{user.screen_name}</span>
 										<span>·</span>
 										<span>

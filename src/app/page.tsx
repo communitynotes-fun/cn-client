@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
-
+import { useFetchMarkets } from "@/hooks/use-fetch-markets";
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const [tweetId, setTweetId] = useState("");
@@ -60,6 +60,10 @@ export default function Page() {
 	};
 
 	const { ready, authenticated } = usePrivy();
+
+	const { data: markets, isLoading, error } = useFetchMarkets();
+
+	console.log("markets", markets);
 
 	return (
 		<div className="@container/main flex flex-1 flex-col gap-2">
