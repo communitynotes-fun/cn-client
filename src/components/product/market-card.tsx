@@ -13,6 +13,7 @@ import { StatusBadge } from "./status-badge";
 import { useState, useEffect } from "react";
 import { TweetProps } from "@/lib/types/tweet";
 import { Button } from "../ui/button";
+import { tokens } from "@/lib/constants";
 
 export function MarketCard({
 	market,
@@ -24,15 +25,19 @@ export function MarketCard({
 	status,
 	volume,
 	participants,
-	endTime,
 	variant = "default",
 	id_str,
 	...props
 }: TweetProps) {
+	console.log("market.deadline", market?.deadline);
+	console.log(
+		"formatted date:",
+		market?.deadline ? new Date(Number(market.deadline) * 1000) : "No deadline"
+	);
 	const [duration, setDuration] = useState(() =>
 		intervalToDuration({
 			start: new Date(),
-			end: new Date(endTime),
+			end: new Date(market?.deadline ? Number(market.deadline) * 1000 : ""),
 		})
 	);
 
@@ -41,15 +46,13 @@ export function MarketCard({
 			setDuration(
 				intervalToDuration({
 					start: new Date(),
-					end: new Date(endTime),
+					end: new Date(market?.deadline ? Number(market.deadline) * 1000 : ""),
 				})
 			);
 		}, 1000);
 
 		return () => clearInterval(timer);
-	}, [endTime]);
-
-	console.log(market);
+	}, [market?.deadline]);
 
 	return (
 		<Card className={cn("@container/card", props.className)} {...props}>
@@ -129,7 +132,10 @@ export function MarketCard({
 									<div className="flex items-center gap-2 flex-wrap">
 										<Avatar className="size-[20px]">
 											<AvatarImage
-												src={market?.tweet.quoted_tweet.user.profile_image_url_https}
+												src={
+													market?.tweet.quoted_tweet.user
+														.profile_image_url_https
+												}
 												alt={market?.tweet.quoted_tweet.user.name}
 											/>
 											<AvatarFallback>
@@ -159,7 +165,10 @@ export function MarketCard({
 											"photo" && (
 											// eslint-disable-next-line @next/next/no-img-element
 											<img
-												src={market?.tweet.quoted_tweet.mediaDetails[0].media_url_https}
+												src={
+													market?.tweet.quoted_tweet.mediaDetails[0]
+														.media_url_https
+												}
 												alt="Tweet media"
 												className="mt-4 w-full object-cover object-center max-h-60"
 											/>
@@ -209,14 +218,16 @@ export function MarketCard({
 						className="text-muted-foreground py-3 px-3 pr-6  flex gap-3 items-start w-full"
 					>
 						Volume
-						<span className="text-card-foreground">{volume} USDC</span>
+						<span className="text-card-foreground">
+							{market?.volume} {tokens.ETH.symbol}
+						</span>
 					</Badge>
 					<Badge
 						variant="outline"
 						className="text-muted-foreground py-3 px-3 pr-6 flex gap-3 items-start w-full border-l-0"
 					>
 						Participants
-						<span className="text-card-foreground">{participants}</span>
+						<span className="text-card-foreground">{market?.participants}</span>
 					</Badge>
 				</div>
 			</CardFooter>

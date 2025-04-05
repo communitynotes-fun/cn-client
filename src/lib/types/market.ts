@@ -7,4 +7,6 @@ export interface Market {
 	marketid: string;
 	tweetid: string;
 	tweet: Tweet;
+	volume: string;
+	participants: number;
 }
