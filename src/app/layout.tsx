@@ -20,6 +20,8 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/layout/footer";
 import { Metadata } from "next";
+import PrivyProvider from "@/components/provider/privy-provider";
+import WagmiProvider from "@/components/provider/wagmi-provider";
 const META_THEME_COLORS = {
 	light: "#ffffff",
 	dark: "#09090b",
@@ -107,31 +109,35 @@ export default async function DashboardLayout({
 					fontVariables
 				)}
 			>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-					enableColorScheme
-				>
-					<ActiveThemeProvider initialTheme={activeThemeValue}>
-						<SidebarProvider
-							defaultOpen={false}
-							style={
-								{
-									"--sidebar-width": "calc(var(--spacing) * 72)",
-								} as React.CSSProperties
-							}
+				<PrivyProvider>
+					<WagmiProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+							enableColorScheme
 						>
-							<AppSidebar variant="inset" />
-							<SidebarInset>
-								<SiteHeader />
-								<div className="flex flex-1 flex-col">{children}</div>
-								<SiteFooter />
-							</SidebarInset>
-						</SidebarProvider>
-					</ActiveThemeProvider>
-				</ThemeProvider>
+							<ActiveThemeProvider initialTheme={activeThemeValue}>
+								<SidebarProvider
+									defaultOpen={false}
+									style={
+										{
+											"--sidebar-width": "calc(var(--spacing) * 72)",
+										} as React.CSSProperties
+									}
+								>
+									<AppSidebar variant="inset" />
+									<SidebarInset>
+										<SiteHeader />
+										<div className="flex flex-1 flex-col">{children}</div>
+										<SiteFooter />
+									</SidebarInset>
+								</SidebarProvider>
+							</ActiveThemeProvider>
+						</ThemeProvider>
+					</WagmiProvider>
+				</PrivyProvider>
 			</body>
 		</html>
 	);

@@ -16,6 +16,10 @@ import { SidebarTrigger } from "../ui/sidebar";
 import { routes } from "@/lib/config";
 import { BrandLogo } from "../product/logo";
 import { MiniBrandLogo } from "../product/mini-logo";
+import { NetworkWidget } from "./network-widget";
+import { AccountWidget } from "./account-widget";
+import { usePrivy } from "@privy-io/react-auth";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 export function SiteHeader() {
 	const navigationItems = [
@@ -34,6 +38,12 @@ export function SiteHeader() {
 	];
 
 	const pathname = usePathname();
+
+	const { ready, authenticated, login } = usePrivy();
+
+	const disableLogin = !ready || (ready && authenticated);
+
+	const isMobile = useMediaQuery("(max-width: 640px)");
 
 	return (
 		<header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b">
@@ -74,22 +84,23 @@ export function SiteHeader() {
 					</NavigationMenuList>
 				</NavigationMenu>
 				<div className="ml-auto flex items-center gap-2">
-					<ModeToggle />
-					<Button
-						variant="outline"
-						asChild
-						size="sm"
-						className="hidden sm:flex"
-					>
-						<Link
-							href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
-							rel="noopener noreferrer"
-							target="_blank"
-							className="dark:text-foreground"
-						>
-							Connect Wallet
-						</Link>
-					</Button>
+					{!isMobile && <ModeToggle />}
+					<div className="flex items-center gap-1">
+						<NetworkWidget />
+						{authenticated ? (
+							<AccountWidget />
+						) : (
+							<Button
+								disabled={disableLogin}
+								onClick={login}
+								variant="default"
+								className="gap-1"
+							>
+								Connect
+								<span className="hidden sm:inline"> Wallet</span>
+							</Button>
+						)}
+					</div>
 				</div>
 			</div>
 		</header>
