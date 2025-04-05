@@ -20,7 +20,7 @@ import { NavMain } from "@/components/nav-main";
 import { routes } from "@/lib/config";
 import { NavSecondary } from "../nav-secondary";
 import Link from "next/link";
-
+import { BrandLogo } from "../product/logo";
 const navItems = [
 	{
 		title: "Markets",
@@ -38,21 +38,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar collapsible="offcanvas" {...props}>
 			<SidebarHeader>
-				<SidebarMenu>
-					<SidebarMenuItem>
-						<SidebarMenuButton
-							asChild
-							className="data-[slot=sidebar-menu-button]:!p-1.5"
-						>
-							<Link href="#">
-								<IconInnerShadowTop className="!size-5" />
-								<span className="text-base font-semibold">
-									communitynotes.fun
-								</span>
-							</Link>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
-				</SidebarMenu>
+				<Link href="#" className="w-full">
+					<BrandLogo className="!h-8 !w-auto" />
+				</Link>
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={navItems} />

@@ -11,6 +11,7 @@ import {
 	Inter,
 	Mulish,
 	Noto_Sans_Mono,
+	IBM_Plex_Mono,
 } from "next/font/google";
 
 import "@/app/globals.css";
@@ -28,9 +29,15 @@ const fontSans = Geist({
 	variable: "--font-sans",
 });
 
-const fontMono = Geist_Mono({
+const fontMono = IBM_Plex_Mono({
 	subsets: ["latin"],
 	variable: "--font-mono",
+	weight: ["400", "500", "600", "700"],
+});
+
+const fontGeistMono = Geist_Mono({
+	subsets: ["latin"],
+	variable: "--font-geist-mono",
 });
 
 const fontInstrument = Instrument_Sans({
@@ -56,6 +63,7 @@ const fontInter = Inter({
 const fontVariables = cn(
 	fontSans.variable,
 	fontMono.variable,
+	fontGeistMono.variable,
 	fontInstrument.variable,
 	fontNotoMono.variable,
 	fontMullish.variable,
@@ -74,6 +82,7 @@ export default async function DashboardLayout({
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
+				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 				<script
 					dangerouslySetInnerHTML={{
 						__html: `

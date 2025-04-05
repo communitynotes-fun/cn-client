@@ -14,6 +14,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { routes } from "@/lib/config";
+import { BrandLogo } from "../product/logo";
+import { MiniBrandLogo } from "../product/mini-logo";
 
 export function SiteHeader() {
 	const navigationItems = [
@@ -41,7 +43,10 @@ export function SiteHeader() {
 					orientation="vertical"
 					className="mx-2 data-[orientation=vertical]:h-4 md:hidden"
 				/>
-				<h1 className="text-base font-medium">communitynotes.fun</h1>
+				<Link href={routes.markets} className="">
+					<MiniBrandLogo className="sm:hidden" />
+					<BrandLogo className="hidden sm:block" />
+				</Link>
 				<Separator
 					orientation="vertical"
 					className="hidden md:block mx-2 data-[orientation=vertical]:h-4"
