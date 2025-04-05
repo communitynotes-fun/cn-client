@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
 		process.env.CURVEGRID_APP_DEPLOYMENT_HOST?.replace("/api/v0", "").replace(
 			"https://",
 			""
-		) || "bax2nz6gvnaf7ouej32tykbzeu.multibaas.com";
+		) || "jxutqneljbdfnbq47xrwy2632m.multibaas.com";
 	const externalApiUrl = `https://${hostname}/api/v0/queries/${eventQuery}/results?${queryParams}`;
 
 	try {

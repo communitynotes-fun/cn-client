@@ -49,13 +49,16 @@ export async function GET(request: NextRequest) {
 		process.env.CURVEGRID_APP_DEPLOYMENT_HOST?.replace("/api/v0", "").replace(
 			"https://",
 			""
-		) || "bax2nz6gvnaf7ouej32tykbzeu.multibaas.com";
+		) || "jxutqneljbdfnbq47xrwy2632m.multibaas.com";
 	// The base URL for queries, offset and limit are now part of the POST body or default query params for the POST endpoint
-	const externalApiUrl = `https://${hostname}/api/v0/queries?offset=${offset}&limit=${limit}`;
+	// const externalApiUrl = `https://${hostname}/api/v0/queries?offset=${offset}&limit=${limit}`; // Original URL with query params
+	const externalApiUrl = `https://${hostname}/api/v0/queries`; // Modified URL without query params for POST
 
 	// Define the request body based on the new API requirements
 	// Use 'const' as the object reference itself isn't reassigned
 	const requestBody: any = {
+		offset: parseInt(offset, 10), // Add offset, parsed as integer
+		limit: parseInt(limit, 10), // Add limit, parsed as integer
 		events: [
 			{
 				select: [
