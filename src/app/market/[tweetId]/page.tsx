@@ -126,7 +126,7 @@ export default function Page({
 										<span
 											className={cn(
 												"text-card-foreground",
-												data.pnl > 0 ? "text-green-400" : "text-red-400"
+												data.pnl > 0 ? "text-green-500" : "text-red-500"
 											)}
 										>
 											{data.pnl > 0 ? "+" : "-"}
@@ -153,7 +153,7 @@ export default function Page({
 												variant="outline"
 												className={cn(
 													"text-muted-foreground px-3 py-1 mb-3 h-[24px]",
-													isMyPayoutNegative ? "text-red-400" : "text-green-400"
+													isMyPayoutNegative ? "text-red-500" : "text-green-500"
 												)}
 											>
 												Payout: {isMyPayoutNegative ? "-" : "+"}
@@ -193,7 +193,7 @@ export default function Page({
 										<span
 											className={cn(
 												"text-card-foreground",
-												data.pnl > 0 ? "text-green-400" : "text-red-400"
+												data.pnl > 0 ? "text-green-500" : "text-red-500"
 											)}
 										>
 											{data.pnl > 0 ? "+" : "-"}

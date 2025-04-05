@@ -123,7 +123,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 					<div
 						className={cn(
 							"text-left font-medium",
-							isNegative ? "text-red-400" : "text-green-400"
+							isNegative ? "text-red-500" : "text-green-500"
 						)}
 					>
 						{isNegative ? "-" : "+"}
@@ -134,7 +134,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 							variant="outline"
 							className={cn(
 								"text-muted-foreground px-1.5",
-								isMyPayoutNegative ? "text-red-400" : "text-green-400"
+								isMyPayoutNegative ? "text-red-500" : "text-green-500"
 							)}
 						>
 							Payout: {myPayout} USDC

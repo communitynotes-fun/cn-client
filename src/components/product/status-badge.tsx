@@ -12,7 +12,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 			className="text-muted-foreground px-1.5 py-1 gap-2"
 		>
 			{status === "Resolved" ? (
-				<IconCircleCheckFilled className="text-green-500 dark:text-green-400 !size-5" />
+				<IconCircleCheckFilled className="text-green-500 dark:text-green-500 !size-5" />
 			) : (
 				<IconLoader className="text-orange-500 dark:text-orange-400 !size-5" />
 			)}
