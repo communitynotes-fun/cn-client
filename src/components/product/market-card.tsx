@@ -56,7 +56,7 @@ export function MarketCard({
 
 	return (
 		<Card className={cn("@container/card", props.className)} {...props}>
-			<CardContent className="">
+			<CardContent className="h-full">
 				<div className="flex items-start gap-3">
 					<div className="flex flex-col w-full">
 						<div className="flex items-center gap-3 justify-between">
