@@ -31,3 +31,9 @@ export const isSameAddress = (
 ): boolean => {
 	return addressOne.toLowerCase() === addressTwo.toLowerCase();
 };
+
+export function getChainIdFromCAIP2(version?: string): number {
+	if (!version) return 0;
+	const match = version.match(/^eip155:(\d+)$/);
+	return match ? parseInt(match[1], 10) : 0;
+}

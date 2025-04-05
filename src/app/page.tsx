@@ -15,9 +15,16 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { usePrivy } from "@privy-io/react-auth";
 import { useFetchMarkets } from "@/hooks/use-fetch-markets";
+import { useCreateMarket } from "@/hooks/use-create-market";
 export default function Page() {
 	const [open, setOpen] = useState(false);
 	const [tweetId, setTweetId] = useState("");
+
+	const [nonce, setNonce] = useState(0);
+	const { handleCreateMarket, isLoading } = useCreateMarket(() => {
+		setNonce(nonce + 1);
+		setOpen(false);
+	});
 
 	const tweetData = {
 		text: "This was done in the name of working class populism, but there is no way in hell the working class voted for this.",
@@ -99,12 +106,11 @@ export default function Page() {
 							</div>
 							<Button
 								onClick={() => {
-									// Handle market creation logic here
-									console.log("Creating market with Tweet ID:", tweetId);
-									setOpen(false); // Close modal after creation attempt
+									handleCreateMarket(tweetId);
 								}}
+								disabled={isLoading}
 							>
-								Create Market
+								{isLoading ? "Creating..." : "Create Market"}
 							</Button>
 						</DialogContent>
 					</Dialog>

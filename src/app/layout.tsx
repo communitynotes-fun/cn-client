@@ -22,6 +22,7 @@ import { SiteFooter } from "@/components/layout/footer";
 import { Metadata } from "next";
 import PrivyProvider from "@/components/provider/privy-provider";
 import WagmiProvider from "@/components/provider/wagmi-provider";
+import { Toaster } from "sonner";
 const META_THEME_COLORS = {
 	light: "#ffffff",
 	dark: "#09090b",
@@ -138,6 +139,7 @@ export default async function DashboardLayout({
 						</ThemeProvider>
 					</WagmiProvider>
 				</PrivyProvider>
+				<Toaster />
 			</body>
 		</html>
 	);
