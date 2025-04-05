@@ -34,9 +34,7 @@ body {
   [data-slot="toggle-group-item"] {
     @apply !rounded-none !shadow-none;
   }
-}
 
-.theme-scaled {
   @media (min-width: 1024px) {
     --radius: 0.6rem;
     --text-lg: 1.05rem;
