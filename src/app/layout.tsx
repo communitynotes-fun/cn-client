@@ -19,6 +19,7 @@ import "@/app/theme.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/layout/footer";
+import { Metadata } from "next";
 const META_THEME_COLORS = {
 	light: "#ffffff",
 	dark: "#09090b",
@@ -69,6 +70,10 @@ const fontVariables = cn(
 	fontMullish.variable,
 	fontInter.variable
 );
+export const metadata: Metadata = {
+	title: "communitynotes.fun",
+	description: "Predict X community notes",
+};
 
 export default async function DashboardLayout({
 	children,
