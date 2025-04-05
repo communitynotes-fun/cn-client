@@ -109,14 +109,14 @@ export default function Page({
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start"
 									>
 										Volume
-										<span className="text-white">3,000 USDC</span>
+										<span className="text-card-foreground">3,000 USDC</span>
 									</Badge>
 									<Badge
 										variant="outline"
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start border-l-0"
 									>
 										Participants
-										<span className="text-white">12</span>
+										<span className="text-card-foreground">12</span>
 									</Badge>
 									<Badge
 										variant="outline"
@@ -125,7 +125,7 @@ export default function Page({
 										PnL
 										<span
 											className={cn(
-												"text-white",
+												"text-card-foreground",
 												data.pnl > 0 ? "text-green-400" : "text-red-400"
 											)}
 										>
@@ -176,14 +176,14 @@ export default function Page({
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start"
 									>
 										Volume
-										<span className="text-white">3,000 USDC</span>
+										<span className="text-card-foreground">3,000 USDC</span>
 									</Badge>
 									<Badge
 										variant="outline"
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start border-l-0"
 									>
 										Participants
-										<span className="text-white">12</span>
+										<span className="text-card-foreground">12</span>
 									</Badge>
 									<Badge
 										variant="outline"
@@ -192,7 +192,7 @@ export default function Page({
 										PnL
 										<span
 											className={cn(
-												"text-white",
+												"text-card-foreground",
 												data.pnl > 0 ? "text-green-400" : "text-red-400"
 											)}
 										>

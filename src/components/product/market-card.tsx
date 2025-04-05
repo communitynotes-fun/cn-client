@@ -199,14 +199,14 @@ export function MarketCard({
 						className="text-muted-foreground py-3 px-3 pr-6  flex gap-3 items-start w-full"
 					>
 						Volume
-						<span className="text-white">{volume} USDC</span>
+						<span className="text-card-foreground">{volume} USDC</span>
 					</Badge>
 					<Badge
 						variant="outline"
 						className="text-muted-foreground py-3 px-3 pr-6 flex gap-3 items-start w-full border-l-0"
 					>
 						Participants
-						<span className="text-white">{participants}</span>
+						<span className="text-card-foreground">{participants}</span>
 					</Badge>
 				</div>
 			</CardFooter>
