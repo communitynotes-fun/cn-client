@@ -15,7 +15,7 @@ This project leverages MultiBaas to interact with smart contracts deployed on th
 ## Team
 
 - **Angelica Willianto** - Full Stack Developer - [@awill\_\_](https://twitter.com/awill__)
-- **Alessandro Figo** - Full Stack Developer - [@mku_eth](https://twitter.com/sarahj_eth)
+- **Alessandro Figo** - Full Stack Developer - [@mku_eth](https://twitter.com/mku_eth)
 
 ## Setup Instructions
 
