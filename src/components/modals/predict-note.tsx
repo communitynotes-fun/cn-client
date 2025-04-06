@@ -88,7 +88,7 @@ export function PredictNoteModal({
 						<div className="flex items-center justify-between">
 							<Label>Select Amount</Label>
 							<span className="text-sm leading-none text-muted-foreground">
-								Balance: {balance} USDC
+								Balance: {balance} POL
 							</span>
 						</div>
 						<Input
@@ -118,7 +118,7 @@ export function PredictNoteModal({
 					<div className="bg-muted/50 p-4 rounded-lg flex flex-col gap-1">
 						<div className="flex justify-between">
 							<span className="text-xs font-semibold">Potential Return:</span>
-							<span className="text-xs font-semibold">?? USDC</span>
+							<span className="text-xs font-semibold">?? POL</span>
 						</div>
 						<p className="text-xs text-muted-foreground">
 							Returns will vary based on the final market distribution and

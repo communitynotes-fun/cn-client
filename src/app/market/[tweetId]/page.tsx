@@ -40,7 +40,6 @@ export default function Page() {
 			console.log("No-note prediction submitted");
 		}
 	);
-	
 
 	console.log("markets", markets);
 
@@ -149,7 +148,7 @@ export default function Page() {
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start"
 									>
 										Volume
-										<span className="text-card-foreground">3,000 USDC</span>
+										<span className="text-card-foreground">3,000 POL</span>
 									</Badge>
 									<Badge
 										variant="outline"
@@ -170,7 +169,7 @@ export default function Page() {
 											)}
 										>
 											{data.pnl > 0 ? "+" : "-"}
-											{Math.abs(data.pnl)} USDC
+											{Math.abs(data.pnl)} POL
 										</span>
 									</Badge>
 								</div>
@@ -185,7 +184,7 @@ export default function Page() {
 													"text-muted-foreground px-3 py-1 mb-3 h-[24px]"
 												)}
 											>
-												Position: {Math.abs(data.myPosition)} USDC
+												Position: {Math.abs(data.myPosition)} POL
 											</Badge>
 										)}
 										{data.myPayout > 0 && (
@@ -197,7 +196,7 @@ export default function Page() {
 												)}
 											>
 												Payout: {isMyPayoutNegative ? "-" : "+"}
-												{Math.abs(data.myPayout)} USDC
+												{Math.abs(data.myPayout)} POL
 											</Badge>
 										)}
 									</div>
@@ -220,7 +219,7 @@ export default function Page() {
 										className="text-muted-foreground p-3 w-full flex flex-col gap-2 items-start"
 									>
 										Volume
-										<span className="text-card-foreground">3,000 USDC</span>
+										<span className="text-card-foreground">3,000 POL</span>
 									</Badge>
 									<Badge
 										variant="outline"
@@ -241,7 +240,7 @@ export default function Page() {
 											)}
 										>
 											{data.pnl > 0 ? "+" : "-"}
-											{Math.abs(data.pnl)} USDC
+											{Math.abs(data.pnl)} POL
 										</span>
 									</Badge>
 								</div>

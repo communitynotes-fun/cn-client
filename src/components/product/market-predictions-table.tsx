@@ -103,7 +103,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 					{row.getValue("volume")}
 					{myPosition > 0 && (
 						<Badge variant="outline" className="text-muted-foreground px-1.5">
-							Position: {myPosition} USDC
+							Position: {myPosition} POL
 						</Badge>
 					)}
 				</div>
@@ -127,7 +127,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 						)}
 					>
 						{isNegative ? "-" : "+"}
-						{Math.abs(value)} USDC
+						{Math.abs(value)} POL
 					</div>
 					{myPayout > 0 && (
 						<Badge
@@ -137,7 +137,7 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
 								isMyPayoutNegative ? "text-red-500" : "text-green-500"
 							)}
 						>
-							Payout: {myPayout} USDC
+							Payout: {myPayout} POL
 						</Badge>
 					)}
 				</div>
