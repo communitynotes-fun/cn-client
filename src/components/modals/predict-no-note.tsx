@@ -95,17 +95,6 @@ export function PredictNoNoteModal({
 						/>
 					</div>
 
-					<div className="bg-muted/50 p-4 rounded-lg flex flex-col gap-1">
-						<div className="flex justify-between">
-							<span className="text-xs font-semibold">Potential Return:</span>
-							<span className="text-xs font-semibold">?? POL</span>
-						</div>
-						<p className="text-xs text-muted-foreground">
-							Returns will vary based on the final market distribution and
-							resolution with the official Community Note.
-						</p>
-					</div>
-
 					<div className="flex justify-between gap-4">
 						<DialogClose asChild>
 							<Button variant="outline" className="flex-1">

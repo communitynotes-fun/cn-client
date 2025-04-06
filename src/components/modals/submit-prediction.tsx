@@ -51,7 +51,6 @@ export function SubmitPredictionModal({
 			body: JSON.stringify({ text: prediction }),
 		});
 		const { encoded } = await response.json();
-		console.log("encoded", encoded);
 		onSubmit(
 			market.marketid,
 			prediction,

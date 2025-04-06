@@ -57,27 +57,22 @@ export const useFetchMarkets = (
 					const tweetData = await tweetResponse.json();
 
 					const volumeResponse = await fetch(
-						`${MARKET_VOLUME_API_URL}?${queryParams}`
-					);
-					const volumeData = await volumeResponse.json();
-					const volumeMatch = volumeData.find(
-						(v: { marketid: string }) => v.marketid === market.marketid
+						`${MARKET_VOLUME_API_URL}?marketId=${market.marketid}`
 					);
 
+					const volumeData = await volumeResponse.json();
+
 					const volume = formatUnits(
-						volumeMatch?.volume || "0",
+						volumeData[0]?.volume || "0",
 						tokens.POL.decimals
 					);
 
 					const participantsResponse = await fetch(
-						`${MARKET_PARTICIPANTS_API_URL}?${queryParams}`
+						`${MARKET_PARTICIPANTS_API_URL}?marketId=${market.marketid}`
 					);
 					const participantsData = await participantsResponse.json();
-					const participantsMatch = participantsData.find(
-						(p: { marketid: string }) => p.marketid === market.marketid
-					);
 
-					const participants = participantsMatch?.participants || 0;
+					const participants = participantsData[0]?.participants || 0;
 
 					const marketResolvedResponse = await fetch(
 						`${MARKET_RESOLVED_API_URL}?${queryParams}`

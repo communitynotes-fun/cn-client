@@ -21,6 +21,31 @@ interface MultiBaasResponse {
 	result: MultiBaasResult;
 }
 
+// Interface for query event configuration
+interface QueryEvent {
+	select: Array<{
+		name: string;
+		type: string;
+		alias: string;
+		inputIndex: number;
+		aggregator?: string;
+	}>;
+	eventName: string;
+	filter?: {
+		name: string;
+		type: string;
+		inputIndex: number;
+		value: string;
+		operator: string;
+	};
+}
+
+// Interface for query body
+interface QueryBody {
+	events: QueryEvent[];
+	groupBy: string;
+}
+
 // --- End of Updated Interfaces ---
 
 export async function GET(request: NextRequest) {
@@ -39,32 +64,81 @@ export async function GET(request: NextRequest) {
 	const searchParams = request.nextUrl.searchParams;
 	const offset = searchParams.get("offset") || "0";
 	const limit = searchParams.get("limit") || "50";
+	const marketId = searchParams.get("marketId");
+	const isAgree = searchParams.get("isAgree");
+	// 3. Construct the query body with the provided configuration
+	const queryBody: QueryBody = {
+		events: [
+			{
+				select: [
+					{
+						name: "marketId",
+						type: "input",
+						alias: "",
+						inputIndex: 0,
+					},
+					{
+						name: "value",
+						type: "input",
+						alias: "volume",
+						aggregator: "add",
+						inputIndex: 4,
+					},
+				],
+				eventName:
+					"PredictionMade(uint256,uint256,address,bool,uint256,uint256)",
+			},
+		],
+		groupBy: "marketId",
+	};
 
-	// 3. Construct the query parameters for the external API call
+	// Add filter if marketId is provided
+	if (marketId) {
+		queryBody.events[0].filter = {
+			name: "marketId",
+			type: "input",
+			inputIndex: 0,
+			value: marketId,
+			operator: "Equal",
+		};
+	}
+
+	if (isAgree) {
+		queryBody.events[0].filter = {
+			name: "isAgree",
+			type: "input",
+			inputIndex: 3,
+			value: isAgree,
+			operator: "Equal",
+		};
+	}
+
+	// 4. Construct the query parameters for the external API call
 	const queryParams = new URLSearchParams({ offset, limit }).toString();
 
-	// 4. Define the external API details
-	const eventQuery = "MarketVolume";
+	// 5. Define the external API details
 	const hostname =
 		process.env.CURVEGRID_APP_DEPLOYMENT_HOST?.replace("/api/v0", "").replace(
 			"https://",
 			""
 		) || "jxutqneljbdfnbq47xrwy2632m.multibaas.com";
-	const externalApiUrl = `https://${hostname}/api/v0/queries/${eventQuery}/results?${queryParams}`;
+	const externalApiUrl = `https://${hostname}/api/v0/queries?${queryParams}`;
 
 	try {
-		// 5. Make the fetch call to the external MultiBaas API
+		// 6. Make the fetch call to the external MultiBaas API
 		console.log(`Fetching from MultiBaas: ${externalApiUrl}`);
 		const externalResponse = await fetch(externalApiUrl, {
-			method: "GET",
+			method: "POST",
 			headers: {
 				Authorization: `Bearer ${apiKey}`,
 				Accept: "application/json",
+				"Content-Type": "application/json",
 			},
+			body: JSON.stringify(queryBody),
 			// cache: 'no-store', // Optional: Uncomment to disable fetch caching
 		});
 
-		// 6. Check if the external API call was successful
+		// 7. Check if the external API call was successful
 		if (!externalResponse.ok) {
 			const errorText = await externalResponse.text();
 			console.error(
@@ -80,7 +154,7 @@ export async function GET(request: NextRequest) {
 			);
 		}
 
-		// 7. Get the data and assert the type using the new interface
+		// 8. Get the data and assert the type using the new interface
 		const data: MultiBaasResponse = await externalResponse.json();
 
 		// --- Adjustment ---
@@ -95,8 +169,7 @@ export async function GET(request: NextRequest) {
 			);
 		}
 
-		// 8. Send the relevant part of the data (the 'result' object) back to your frontend client
-		// Or you could send just data.result.rows if that's all you need
+		// 9. Send the relevant part of the data (the 'result' object) back to your frontend client
 		return NextResponse.json(data.result.rows);
 		// --- End of Adjustment ---
 	} catch (error: unknown) {

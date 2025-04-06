@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-interface PredictionMade {
+export interface PredictionMade {
 	marketId: string;
 	predictionId: string;
 	predictor: string;
