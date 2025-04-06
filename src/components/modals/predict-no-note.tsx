@@ -17,38 +17,36 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { TweetProps } from "@/lib/types/tweet";
 import { IconRosetteDiscountCheckFilled as IconVerified } from "@tabler/icons-react";
+import { parseEther } from "viem";
+import { Market } from "@/lib/types/market";
+import { useAccount, useBalance } from "wagmi";
+
+interface PredictNoNoteModalProps extends TweetProps {
+	onSubmit: (marketId: string, stakeAmount: bigint) => void;
+	market: Market;
+}
 
 export function PredictNoNoteModal({
-	text,
-	user,
-	created_at,
-	mediaDetails,
-	quoted_tweet,
-	conversation_count,
-	status,
-	volume,
-	participants,
-	endTime,
+	market,
+	onSubmit,
 	...props
-}: TweetProps) {
-	const [stakeAmount, setStakeAmount] = useState(25);
-	const prediction =
-		"While AI progress has been rapid in some areas like language models, many experts caution that advancements are slower in areas like reasoning and general intelligence.";
-	const balance = 250;
+}: PredictNoNoteModalProps) {
+	const [stakeAmount, setStakeAmount] = useState(0);
 
-	const increaseStake = (amount: number) => {
-		setStakeAmount((prev) => Math.min(prev + amount, balance));
-	};
+	const { address } = useAccount();
+	const { data: balance } = useBalance({
+		address,
+	});
 
-	const setMaxStake = () => {
-		setStakeAmount(balance);
+	const handleSubmit = async () => {
+		onSubmit(market.marketid, parseEther(stakeAmount.toString()));
 	};
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="outline" size="lg" className="w-full h-[35px]">
-					Predict
+					Predict No Note
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[600px]">
@@ -64,27 +62,29 @@ export function PredictNoNoteModal({
 						<div className="flex items-center gap-2 flex-wrap">
 							<Avatar className="size-[20px] rounded-full overflow-hidden">
 								<AvatarImage
-									src={user.profile_image_url_https}
-									alt={user.name}
+									src={market.tweet.user.profile_image_url_https}
+									alt={market.tweet.user.name}
 								/>
-								<AvatarFallback>{user.name[0]}</AvatarFallback>
+								<AvatarFallback>{market.tweet.user.name[0]}</AvatarFallback>
 							</Avatar>
-							<span className="text-sm font-semibold">{user.name}</span>
-							{user.is_blue_verified && (
+							<span className="text-sm font-semibold">
+								{market.tweet.user.name}
+							</span>
+							{market.tweet.user.is_blue_verified && (
 								<IconVerified className="!size-[16px] text-blue-500" />
 							)}
 							<span className="text-sm text-muted-foreground">
-								@{user.screen_name}
+								@{market.tweet.user.screen_name}
 							</span>
 						</div>
-						<p className="text-sm line-clamp-2">{text}</p>
+						<p className="text-sm line-clamp-2">{market.tweet.text}</p>
 					</Card>
 
 					<div className="flex flex-col gap-2 mt-0.5">
 						<div className="flex items-center justify-between">
 							<Label>Select Amount</Label>
 							<span className="text-sm leading-none text-muted-foreground">
-								Balance: {balance} USDC
+								Balance: {balance?.formatted} POL
 							</span>
 						</div>
 						<Input
@@ -93,28 +93,12 @@ export function PredictNoNoteModal({
 							onChange={(e) => setStakeAmount(Number(e.target.value))}
 							className="h-[40px]"
 						/>
-						<div className="grid grid-cols-5 gap-2">
-							{[1, 5, 10, 25].map((amount) => (
-								<Button
-									className="w-full"
-									key={amount}
-									variant="outline"
-									size="sm"
-									onClick={() => increaseStake(amount)}
-								>
-									+{amount}
-								</Button>
-							))}
-							<Button variant="outline" size="sm" onClick={setMaxStake}>
-								MAX
-							</Button>
-						</div>
 					</div>
 
 					<div className="bg-muted/50 p-4 rounded-lg flex flex-col gap-1">
 						<div className="flex justify-between">
 							<span className="text-xs font-semibold">Potential Return:</span>
-							<span className="text-xs font-semibold">?? USDC</span>
+							<span className="text-xs font-semibold">?? POL</span>
 						</div>
 						<p className="text-xs text-muted-foreground">
 							Returns will vary based on the final market distribution and
@@ -128,7 +112,9 @@ export function PredictNoNoteModal({
 								Cancel
 							</Button>
 						</DialogClose>
-						<Button className="flex-1">Submit Prediction</Button>
+						<Button className="flex-1" onClick={handleSubmit}>
+							Submit Prediction
+						</Button>
 					</div>
 				</div>
 			</DialogContent>

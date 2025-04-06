@@ -22,6 +22,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useFetchMarkets } from "@/hooks/use-fetch-markets";
 import { useFetchPredictions } from "@/hooks/use-fetch-predictions";
 import { useSubmitPrediction } from "@/hooks/use-submit-prediction";
+import { useSubmitNoNote } from "@/hooks/use-submit-no-note";
 
 export default function Page() {
 	const params = useParams<{ tweetId: string }>();
@@ -33,6 +34,13 @@ export default function Page() {
 	const { handleSubmitPrediction, isLoading } = useSubmitPrediction(() => {
 		console.log("Prediction submitted");
 	});
+
+	const { handleSubmitNoNote, isLoading: isLoadingNoNote } = useSubmitNoNote(
+		() => {
+			console.log("No-note prediction submitted");
+		}
+	);
+	
 
 	console.log("markets", markets);
 
@@ -193,7 +201,11 @@ export default function Page() {
 											</Badge>
 										)}
 									</div>
-									<PredictNoNoteModal {...tweetData} />
+									<PredictNoNoteModal
+										{...tweetData}
+										market={markets[0]}
+										onSubmit={handleSubmitNoNote}
+									/>
 								</div>
 							</CardFooter>
 						</Card>
