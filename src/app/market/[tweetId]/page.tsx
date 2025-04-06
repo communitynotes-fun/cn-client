@@ -21,15 +21,19 @@ import { PredictNoNoteModal } from "@/components/modals/predict-no-note";
 import { formatDistanceToNow } from "date-fns";
 import { useFetchMarkets } from "@/hooks/use-fetch-markets";
 import { useFetchPredictions } from "@/hooks/use-fetch-predictions";
+import { useSubmitPrediction } from "@/hooks/use-submit-prediction";
+
 export default function Page() {
 	const params = useParams<{ tweetId: string }>();
 
 	const { markets, isFetching } = useFetchMarkets(params.tweetId);
+	const { predictions, isFetching: isFetchingPredictions } =
+		useFetchPredictions(markets[0]?.marketid || "");
 
-	// const { predictions, isFetching: isFetchingPredictions } =
-	// 	useFetchPredictions(markets[0]?.marketid || "");
+	const { handleSubmitPrediction, isLoading } = useSubmitPrediction(() => {
+		console.log("Prediction submitted");
+	});
 
-	// console.log("predictions", predictions);
 	console.log("markets", markets);
 
 	const tweetData = {
@@ -90,7 +94,7 @@ export default function Page() {
 	};
 
 	// Loading state check
-	if (isFetching ) {
+	if (isFetching) {
 		return (
 			<div className="flex flex-1 justify-center items-center">
 				<p>Loading...</p>{" "}
@@ -234,7 +238,11 @@ export default function Page() {
 								<div className="text-sm text-muted-foreground mb-3 h-[24px]">
 									Choose from existing predictions or
 								</div>
-								<SubmitPredictionModal {...tweetData} />
+								<SubmitPredictionModal
+									{...tweetData}
+									market={markets[0]}
+									onSubmit={handleSubmitPrediction}
+								/>
 							</CardFooter>
 						</Card>
 					</div>

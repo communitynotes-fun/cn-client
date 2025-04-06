@@ -66,7 +66,7 @@ export const useFetchMarkets = (
 
 					const volume = formatUnits(
 						volumeMatch?.volume || "0",
-						tokens.ETH.decimals
+						tokens.POL.decimals
 					);
 
 					const participantsResponse = await fetch(

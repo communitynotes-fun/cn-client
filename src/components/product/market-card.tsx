@@ -20,11 +20,6 @@ export function MarketCard({
 	variant = "default",
 	...props
 }: TweetProps) {
-	console.log("market.deadline", market?.deadline);
-	console.log(
-		"formatted date:",
-		market?.deadline ? new Date(Number(market.deadline) * 1000) : "No deadline"
-	);
 	const [duration, setDuration] = useState(() =>
 		intervalToDuration({
 			start: new Date(),
@@ -170,7 +165,7 @@ export function MarketCard({
 					</div>
 				</div>
 			</CardContent>
-			{variant === "compact" && (
+			{/* {variant === "compact" && (
 				<div className="border-t border-muted-foreground/20 px-6 pt-6">
 					<div className="grid grid-cols-2 w-full">
 						<Badge
@@ -193,7 +188,7 @@ export function MarketCard({
 						</Badge>
 					</div>
 				</div>
-			)}
+			)} */}
 			<CardFooter className="border-t border-muted-foreground/20 px-6 flex flex-col gap-4 items-start">
 				<div className="flex items-center gap-3">
 					<StatusBadge status={market?.status || "ongoing"} />
@@ -210,7 +205,7 @@ export function MarketCard({
 					>
 						Volume
 						<span className="text-card-foreground">
-							{market?.volume} {tokens.ETH.symbol}
+							{market?.volume} {tokens.POL.symbol}
 						</span>
 					</Badge>
 					<Badge
